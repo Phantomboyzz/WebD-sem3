@@ -1,20 +1,24 @@
-import EvenEmitter from "node:events";
+import EventEmitter from "node:events";
 
-const emitter = new EvenEmitter()
+const emitter = new EventEmitter();
 
-// Register Event
-emitter.on("OrderPlaced", (orderName, value)=>{
-console.log('Order $(orderName') with $(value) has been placed successfully');
-})
-emitter.on("OrderPlaced",()=>{
-console.log('Notification has been send successfully');
-})
-emitter.on("OrderPlaced",()=>{
+// Event registration
+emitter.on("orderPlaced", (orderName, orderPrice) => {
+  console.log(`Order ${orderName} , price ${orderPrice} placed successfully `);
+});
 
+emitter.on("orderPlaced",()=>{
+    console.log("Email send")
 
-console.log('Inventory Updated');
 })
 
-// trigger the event 
-emitter.emit("OrderPlaced"), "iPhone 18", 159000
-emitter.listenerCount("OrderPlaced")
+emitter.on("orderPlaced",()=>{
+    console.log("Inventory updated")
+    
+})
+emitter.on("orderPlaced",()=>{
+    console.log("Notification send to the user")
+    
+})
+
+emitter.emit("orderPlaced", "iphone 18", 45646);
